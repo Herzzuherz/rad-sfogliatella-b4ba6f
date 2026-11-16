@@ -1,0 +1,22 @@
+VON HERZ ZU HERZ – AUTOMATISCHE BUCHAUSWAHL
+
+Inhalt:
+- public/: deine Website mit dem bisherigen Design und den 14 Kategorie-Filtern
+- public/ausleihe-anfragen.html: Formular mit Buchauswahl
+- netlify/functions/buecher.mjs: sichere, nur lesende Abfrage deiner Buchtitel
+- netlify.toml: Netlify-Konfiguration
+
+WICHTIG:
+Diese Version benötigt Netlify Functions. Ein einfaches Hochladen der ZIP-Datei
+über "Schon gebaut" / Netlify Drop reicht dafür NICHT aus.
+Die Dateien müssen per mit Netlify verbundenem Git-Repository oder per Netlify CLI
+mit Build-Funktionen veröffentlicht werden. Wir gehen das Schritt für Schritt durch.
+
+Der Token wird NICHT in diesen Dateien gespeichert. Die Umgebungsvariable
+AIRTABLE_TOKEN ist bereits von dir in Netlify angelegt worden.
+
+Die Ausleihanfragen werden weiterhin durch das bisherige Netlify-Formular
+bearbeitet. Es werden nur die Buchtitel per API geladen, keine privaten Daten.
+
+Verwende nicht das alte ZIP-Verfahren für dieses Projekt, sonst könnte
+/.netlify/functions/buecher nicht erreichbar sein.
