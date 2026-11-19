@@ -51,7 +51,7 @@ fieldset.field{border:0;padding:0;margin:3px 0 23px}.choice{display:flex;align-i
 <p class="field"><label for="a-ort">Ort / Stadt (freiwillig)</label><input autocomplete="address-level2" id="a-ort" maxlength="100" name="ort" type="text"/><small>Bitte keine Straße oder Hausnummer eintragen.</small></p>
 <p class="field"><label for="a-title">Buchtitel *</label><input id="a-title" maxlength="200" name="buchtitel" required="" type="text"/></p>
 <p class="field"><label for="a-author">Autorin / Autor *</label><input id="a-author" maxlength="150" name="autor" required="" type="text"/></p>
-<p class="field"><label for="a-genre">Kategorie</label><select id="a-genre" name="kategorie"><option value="">Bitte auswählen</option><option>Bibel &amp; Bibelstudium</option><option>Andacht &amp; Glaube</option><option>Christlicher Roman</option><option>Kinder &amp; Jugend</option><option>Biografie &amp; Lebensgeschichte</option><option>Sonstiges</option></select></p>
+<p class="field"><label for="a-genre">Kategorie</label><select id="a-genre" name="kategorie"><option value="">Bitte auswählen</option><option>Bibel &amp; Bibelstudium</option><option>Andacht &amp; Glaube</option><option>Christlicher Roman</option><option>Kinder &amp; Jugend</option><option>Biografie &amp; Lebensgeschichte</option><option>Sonstiges</option><option>Spiele &amp; mehr</option></select></p>
 </div>
 <fieldset class="field"><legend>Wie möchtest du dein Buch zur Verfügung stellen? *</legend>
 <label class="choice radio"><input data-offer-mode="abgeben" name="verleihweg" required="" type="radio" value="Bei der Buecherei abgeben"/><span><b>Bei der Bücherei abgeben.</b> Die Bücherei kümmert sich um Ausleihe und Rückgabe.</span></label>
@@ -75,4 +75,23 @@ fieldset.field{border:0;padding:0;margin:3px 0 23px}.choice{display:flex;align-i
   document.querySelectorAll('[data-whatsapp-toggle]').forEach(function(c){c.addEventListener('change',function(){toggleWa(c)});toggleWa(c)});
   var choose=document.querySelectorAll('[data-offer-mode]'); if(choose.length){var b=document.getElementById('abgabeart-block');var rs=document.querySelectorAll('[data-abgabeart]');function toggle(){var selected=document.querySelector('[data-offer-mode]:checked');var required=!!selected&&selected.value==='Bei der Buecherei abgeben';b.hidden=!required;rs.forEach(function(r){r.required=required;if(!required)r.checked=false})}choose.forEach(function(c){c.addEventListener('change',toggle)});toggle();}
 })();
-</script></body></html>
+</script>
+<script>
+// Nur die sichtbaren Feldbeschriftungen/Validierung fuer andere Medien anpassen.
+(function(){
+  var category = document.getElementById('a-genre');
+  var titleLabel = document.querySelector('label[for="a-title"]');
+  var author = document.getElementById('a-author');
+  var authorLabel = document.querySelector('label[for="a-author"]');
+  if(!category || !titleLabel || !author || !authorLabel) return;
+  function updateLabels(){
+    var otherMedia = category.value === 'Spiele & mehr';
+    titleLabel.textContent = otherMedia ? 'Name des Spiels / der Talkbox *' : 'Buchtitel *';
+    authorLabel.textContent = otherMedia ? 'Hersteller / Herausgeber (falls bekannt)' : 'Autorin / Autor *';
+    author.required = !otherMedia;
+  }
+  category.addEventListener('change', updateLabels);
+  updateLabels();
+})();
+</script>
+</body></html>
